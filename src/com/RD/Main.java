@@ -40,7 +40,7 @@ public class Main {
             */
 
 
-            PlanetCharacter testPlanet = new PlanetCharacter(returnedImg);
+            PlanetCharacter testPlanet = new PlanetCharacter(10000, 'f');
             long endTime   = System.nanoTime();
             long totalTime = endTime - startTime;
             System.out.println(totalTime);
