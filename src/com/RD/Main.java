@@ -14,7 +14,7 @@ public class Main {
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("Test canvas.png"));
-            BufferedImage returnedImg = PlanetCarver.carve(img,500);
+            BufferedImage returnedImg = PlanetCarver.carve(img,1000);
             /*
             ImageIO.write(returnedImg, "png", new File("New Sam's Face1.png"));
 
