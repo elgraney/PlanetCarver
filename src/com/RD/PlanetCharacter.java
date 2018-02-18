@@ -12,12 +12,16 @@ import java.io.IOException;
 public class PlanetCharacter {
     private BufferedImage skin;
     private int surfaceTemperature;
+    private int size;
+    private ColourPalette colourPalet;
     public PlanetCharacter(int distance, char sunType){
 
         //1. temp
         surfaceTemperature = (int) calcSurfaceTemp(distance, sunType);
         //2. planet size
+        size = calcSize(distance);
         //3. planet type
+        colourPalet = choosePalette(surfaceTemperature);
         //4. planet colour
         //5. planet POIs
         this.skin = chooseSkin(distance, surfaceTemperature);
@@ -28,13 +32,47 @@ public class PlanetCharacter {
         }
     }
 
+    //also include planet type? (continents would be icey, but gas would be hot colour)
+    private ColourPalette choosePalette(int surfaceTemperature){
+        ColourPalette palette;
+        if(surfaceTemperature < 100){
+
+        }
+        else if( 100 <= surfaceTemperature && surfaceTemperature<200)
+
+        return palette;
+    }
+
+    private int calcSize(int distance){
+
+        int[] values = {1, 2, 3, 4, 5, 6};//babby rock, Mercury, Earth, neptune, Saturn, Jupiter
+        int[] chance;
+
+        if (distance < 100000) {//0 to 100,000
+            chance = new int[]{40, 20, 10, 10, 5, 5};
+        } else if (distance >= 100000 && distance < 1000000) {//100,000 to 1,000,000
+            chance = new int[]{20, 20, 30, 10, 20, 10};
+        } else if (distance >= 1000000 && distance < 2500000) {//1,000,000 to 2,500,000
+            chance = new int[]{10, 20, 30, 10, 20, 10};
+        } else if (distance >= 2500000 && distance < 5000000) {//2,500,000 to 5,000,000
+            chance = new int[]{10, 20, 30, 10, 20, 10};
+        } else if (distance >= 5000000 && distance < 7500000) {//5,000,000 to 7,500,000
+            chance = new int[]{10, 20, 30, 10, 20, 10};
+        } else {
+            chance = new int[]{10, 20, 30, 10, 20, 10};//7,500,000 to 10,000,000 onwards
+        }
+        int returnValue = DRV.discreteRV(values, chance);
+
+        return returnValue;
+    }
+
     private BufferedImage chooseSkin(int distance, int surfaceTemperature){
         //determine canvas to use
         //not testable yet so just import default
         BufferedImage newSkin=null;
         try {
-            BufferedImage img = ImageIO.read(new File("Continents V1 small.png"));
-            newSkin =PlanetCarver.carve(img ,500);
+            BufferedImage img = ImageIO.read(new File("Archipelago.png"));
+            newSkin =PlanetCarver.carve(img, 1000);
             newSkin = setColour(newSkin);
         }
         catch (IOException e) {
@@ -75,8 +113,6 @@ public class PlanetCharacter {
                 sunMod =20;
                 break;
         }
-
-
         double temp = -sunMod*Math.log(distance/ 10000000);
         return temp;
     }
@@ -103,7 +139,7 @@ public class PlanetCharacter {
         convertedImage = lookup.filter(convertedImage, null);
 
         from = Color.decode("#00FF00"); //green
-        to = new Color(0xFF8800, false);
+        to = new Color(0x1B9532, false);
         lookup = new LookupOp(new ColourMapper(from, to), null);
         convertedImage = lookup.filter(convertedImage, null);
 

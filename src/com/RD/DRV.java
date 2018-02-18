@@ -7,14 +7,14 @@ import java.util.Random;
  */
 public class DRV {
 
-    public int discreteRV(int[] values, int[] procents) {
+    public static int discreteRV(int[] values, int[] chance) {
 
 
         int rand = new Random().nextInt(100);
 
         int left = 0, right = 0;
-        for (int i = 0; i < procents.length; i++) {
-            right += procents[i];
+        for (int i = 0; i < chance.length; i++) {
+            right += chance[i];
             if (rand >= left && rand < right)
                 return values[i];
             left = right;
