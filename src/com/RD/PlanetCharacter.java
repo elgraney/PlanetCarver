@@ -13,6 +13,7 @@ public class PlanetCharacter {
     private BufferedImage skin;
     private int surfaceTemperature;
     private int size;
+    private int type;
     private ColourPalette colourPalet;
     public PlanetCharacter(int distance, char sunType){
 
@@ -21,8 +22,9 @@ public class PlanetCharacter {
         //2. planet size
         size = calcSize(distance);
         //3. planet type
-        colourPalet = choosePalette(surfaceTemperature);
+        type = chooseType(distance, surfaceTemperature);
         //4. planet colour
+        colourPalet = choosePalette(surfaceTemperature, type);
         //5. planet POIs
         this.skin = chooseSkin(distance, surfaceTemperature);
         try {
@@ -33,12 +35,15 @@ public class PlanetCharacter {
     }
 
     //also include planet type? (continents would be icey, but gas would be hot colour)
-    private ColourPalette choosePalette(int surfaceTemperature){
-        ColourPalette palette;
+    private ColourPalette choosePalette(int surfaceTemperature, int type){
+        ColourPalette palette = new ColourPalette(Color.decode("#0F0000"),Color.decode("#FF0000"),
+                Color.decode("#FFFF00"),Color.decode("#00FFFF"),Color.decode("#FF00FF"));
         if(surfaceTemperature < 100){
 
         }
-        else if( 100 <= surfaceTemperature && surfaceTemperature<200)
+        else if( 100 <= surfaceTemperature && surfaceTemperature<200){
+
+        }
 
         return palette;
     }
